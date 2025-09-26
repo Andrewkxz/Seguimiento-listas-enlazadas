@@ -1,4 +1,4 @@
-package LinkedList;
+package ListaSimpleCircular;
 
 import java.util.Iterator;
 
@@ -7,7 +7,7 @@ public class ListaSimpleCircular <T extends Comparable<T>> implements Iterable<T
     private int tam; //Tamaño de la lista.
 
     //Lista vacia
-    public ListaSimpleEnlazada(){
+    public ListaSimpleCircular(){
         primero = null; //Null inicialmente ya que no referencia nada antes de entrar a la lista.
         tam = 0;
     }
@@ -145,7 +145,7 @@ public class ListaSimpleCircular <T extends Comparable<T>> implements Iterable<T
 
     @Override
     public Iterator<T> iterator() {
-        return new IteratorListaSimpleEnlazada<>(this);
+        return new IteratorListaSimpleCircular<>(this);
     }
 }
 
