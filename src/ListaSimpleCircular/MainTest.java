@@ -1,8 +1,8 @@
-package LinkedList;
+package ListaSimpleCircular;
 
 public class MainTest {
     public static void main(String[] args) {
-        ListaSimpleEnlazada<String> lista = new ListaSimpleEnlazada<>();
+        ListaSimpleCircular<String> lista = new ListaSimpleCircular<>();
 
         /**
         lista.agregarPrimero("una lista");
