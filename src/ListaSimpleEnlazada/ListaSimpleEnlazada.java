@@ -1,8 +1,8 @@
-package LinkedList;
+package ListaSimpleEnlazada;
 
 import java.util.Iterator;
 
-public class ListaSimpleCircular <T extends Comparable<T>> implements Iterable<T> {
+public class ListaSimpleEnlazada <T extends Comparable<T>> implements Iterable<T> {
     private Nodo<T> primero; //Referencia al primer elemento de la lista.
     private int tam; //Tamaño de la lista.
 

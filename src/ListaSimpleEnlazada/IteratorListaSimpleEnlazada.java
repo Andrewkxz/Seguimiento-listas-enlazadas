@@ -1,4 +1,4 @@
-package LinkedList;
+package ListaSimpleEnlazada;
 
 import java.util.Iterator;
 
