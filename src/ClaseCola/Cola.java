@@ -1,68 +1,70 @@
 package ClaseCola;
 
-public class Cola {
-    private Nodo inicio;
-    private Nodo fin;
-    private int tamaño;
+import java.util.Iterator;
+
+public class Cola<T extends Comparable<T>> implements Iterable<T> {
+    private Nodo<T> frente;
+    private Nodo<T> fin;
+    private int tam;
 
     public Cola() {
-        this.inicio = null;
+        this.frente = null;
         this.fin = null;
-        this.tamaño = 0;
+        this.tam = 0;
     }
 
-    public Nodo encolar(int dato) {
-        Nodo nuevoNodo = new Nodo(dato);
-        if (inicio == null) {
-            inicio = nuevoNodo;
+    public void encolar(Nodo<T> nuevoNodo){
+        if(frente == null && tam == 0){
+
+            frente = nuevoNodo;
             fin = nuevoNodo;
-        } else {
-            fin.setSiguiente(nuevoNodo);
+        }else{
+            fin.setProximo(nuevoNodo);
             fin = nuevoNodo;
         }
-        tamaño++;
-        return nuevoNodo;
+        tam++;
     }
 
-    public Nodo desencolar() {
-        if (inicio == null) {
-            return null; // La cola está vacía
+    public Nodo<T> desencolar(){
+        if(frente == null && tam == 0){
+            System.out.println("Cola vacia, no se puede desencolar");
+            return null;
+        }else{
+            Nodo<T> aux = frente;
+            frente = frente.getProximo();
+            tam--;
+            return aux;
         }
-        Nodo nodoDesencolado = inicio;
-        inicio = inicio.getSiguiente();
-        if (inicio == null) {
-            fin = null; // La cola quedó vacía después de desencolar
-        }
-        tamaño--;
-        return nodoDesencolado;
     }
 
-
-    public Nodo getInicio() {
-        return inicio;
+    public Nodo<T> getFrente() {
+        return frente;
     }
 
-    public void setInicio(Nodo inicio) {
-        this.inicio = inicio;
+    public void setFrente(Nodo<T> frente) {
+        this.frente = frente;
     }
 
-    public Nodo getFin() {
+    public Nodo<T> getFin() {
         return fin;
     }
 
-    public void setFin(Nodo fin) {
+    public void setFin(Nodo<T> fin) {
         this.fin = fin;
     }
 
-    public int getTamaño() {
-        return tamaño;
+    public int getTam() {
+        return tam;
     }
 
-    public void setTamaño(int tamaño) {
-        this.tamaño = tamaño;
+    public void setTam(int tam) {
+        this.tam = tam;
     }
 
     @Override
+    public Iterator<T> iterator() {
+        return new IteratorCola<>(this);
+    }
 
-
+    
 }
