@@ -1,8 +1,10 @@
 package ClaseCola;
 
-public class Cola {
-    private Nodo frente;
-    private Nodo fin;
+import java.util.Iterator;
+
+public class Cola<T extends Comparable<T>> implements Iterable<T> {
+    private Nodo<T> frente;
+    private Nodo<T> fin;
     private int tam;
 
     public Cola() {
@@ -11,19 +13,43 @@ public class Cola {
         this.tam = 0;
     }
 
-    public Nodo getFrente() {
+    public void encolar(Nodo<T> nuevoNodo){
+        if(frente == null && tam == 0){
+
+            frente = nuevoNodo;
+            fin = nuevoNodo;
+        }else{
+            fin.setProximo(nuevoNodo);
+            fin = nuevoNodo;
+        }
+        tam++;
+    }
+
+    public Nodo<T> desencolar(){
+        if(frente == null && tam == 0){
+            System.out.println("Cola vacia, no se puede desencolar");
+            return null;
+        }else{
+            Nodo<T> aux = frente;
+            frente = frente.getProximo();
+            tam--;
+            return aux;
+        }
+    }
+
+    public Nodo<T> getFrente() {
         return frente;
     }
 
-    public void setFrente(Nodo frente) {
+    public void setFrente(Nodo<T> frente) {
         this.frente = frente;
     }
 
-    public Nodo getFin() {
+    public Nodo<T> getFin() {
         return fin;
     }
 
-    public void setFin(Nodo fin) {
+    public void setFin(Nodo<T> fin) {
         this.fin = fin;
     }
 
@@ -33,6 +59,11 @@ public class Cola {
 
     public void setTam(int tam) {
         this.tam = tam;
+    }
+
+    @Override
+    public Iterator<T> iterator() {
+        return new IteratorCola<>(this);
     }
 
     
