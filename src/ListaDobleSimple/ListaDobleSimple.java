@@ -3,11 +3,10 @@ package ListaDobleSimple;
 import java.util.Iterator;
 
 public class ListaDobleSimple <T extends Comparable<T>> implements Iterable<T> {
-    private NodoDoble<T> primero; //Referencia al primer elemento de la lista.
-    private NodoDoble<T> ultimo;  //Referencia al último elemento de la lista.
-    private int tam; //Tamaño de la lista.
+    private NodoDoble<T> primero;
+    private NodoDoble<T> ultimo; 
 
-    //Lista vacia
+
     public ListaDobleSimple(){
         primero = null;
         ultimo = null;
@@ -75,7 +74,7 @@ public class ListaDobleSimple <T extends Comparable<T>> implements Iterable<T> {
         }
         tam++;
     }
-    //Metodo para agregar de manera natural a una lista
+
     public void agregarOrdenNatural(T dato) {
         NodoDoble<T> newNodo = new NodoDoble<>(dato);
 
