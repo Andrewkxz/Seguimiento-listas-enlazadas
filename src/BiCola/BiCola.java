@@ -88,6 +88,88 @@ public class BiCola<T extends Comparable<T>> implements Iterable<T> {
         }
     }
 
+     public void agregarInicio(T dato) {
+        Nodo<T> nuevoNodo = new Nodo<>(dato);
+        encolarFrente(nuevoNodo);
+    }
+
+     public void agregarFinal(T dato) {
+        Nodo<T> nuevoNodo = new Nodo<>(dato);
+        encolarFin(nuevoNodo);
+
+    }
+
+        public void agregarEnPosicion(T dato, int posicion) {
+        if (posicion < 0 || posicion > tam) {
+            throw new IndexOutOfBoundsException("Posición inválida");
+        }
+        Nodo<T> nuevoNodo = new Nodo<>(dato);
+        if (posicion == 0) {
+            agregarInicio(dato);
+        } else if (posicion == tam) {
+            agregarFinal(dato);
+        } else {
+            Nodo<T> actual = frente;
+            for (int i = 0; i < posicion - 1; i++) {
+                actual = actual.getProximo();
+            }
+            nuevoNodo.setProximo(actual.getProximo());
+            actual.setProximo(nuevoNodo);
+            tam++;
+        }
+    }
+
+    public void ordenar(){
+        if(frente == null || frente.getProximo() == null){
+            return; //La lista está vacía, entonces ya está ordenada.
+        }
+
+        boolean cambio;
+        do {
+            cambio = false;
+            Nodo<T> actual = frente;
+            Nodo<T> siguiente = frente.getProximo();
+
+            while(siguiente != null){
+                if(actual.getDato().compareTo(siguiente.getDato()) > 0){
+                    //cambio de datos
+                    T cambiar = actual.getDato();
+                    actual.setDato(siguiente.getDato());
+                    siguiente.setDato(cambiar);
+                    cambio = true;
+                }
+                actual = siguiente;
+                siguiente = siguiente.getProximo();
+            }
+        } while(cambio);
+    }
+
+    //Metodo para agregar de manera natural a una lista
+    public void agregarOrdenNatural(T dato) {
+        Nodo<T> newNodo = new Nodo<>(dato);
+
+        if (frente == null || frente.getDato().compareTo(dato) >= 0) {
+            newNodo.setProximo(frente);
+            frente = newNodo;
+            if(fin == null){
+                fin = newNodo;
+            }
+            tam++;
+            return;
+        } else {
+            Nodo<T> actual = frente;
+            while (actual.getProximo() != null && actual.getProximo().getDato().compareTo(dato) < 0) {
+                actual = actual.getProximo();
+            }
+            newNodo.setProximo(actual.getProximo());
+            actual.setProximo(newNodo);
+            if (newNodo.getProximo() == null) {
+                fin = newNodo; // Actualiza el fin si se inserta al final
+            }
+        }
+        tam++;
+    }
+
     public Nodo<T> getFrente() {
         return frente;
     }

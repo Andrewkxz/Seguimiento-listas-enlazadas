@@ -61,6 +61,32 @@ public class ListaSimpleEnlazada <T extends Comparable<T>> implements Iterable<T
         }
         tam++;
     }
+
+    public void ordenar(){
+        if(primero == null || primero.getProximo() == null) {
+            return; // La lista está vacía o tiene un solo elemento, no es necesario ordenar.
+        }
+
+        boolean cambio;
+        do{
+            cambio = false;
+            Nodo<T> actual = primero;
+            Nodo<T> siguiente = primero.getProximo();
+
+            while(siguiente != null){
+                if(actual.getDato().compareTo(siguiente.getDato()) > 0){
+                    // cambio de datos
+                    T cambiar = actual.getDato();
+                    actual.setDato(siguiente.getDato());
+                    siguiente.setDato(cambiar);
+                    cambio = true;
+                }
+                actual = siguiente;
+                siguiente = siguiente.getProximo();
+            }
+        }
+        while(cambio);
+    }
     //Metodo para agregar de manera natural a una lista
     public void agregarOrdenNatural(T dato) {
         Nodo<T> newNodo = new Nodo<>(dato);

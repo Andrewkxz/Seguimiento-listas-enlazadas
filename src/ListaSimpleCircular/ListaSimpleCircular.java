@@ -25,23 +25,30 @@ public class ListaSimpleCircular <T extends Comparable<T>> implements Iterable<T
 
         if(primero == null){
             primero = newNodo;
-            tam++;
-        }else{
             newNodo.setProximo(primero);
+        }else{
+            Nodo<T> actual = primero;
+            while(actual.getProximo() != primero){
+                actual = actual.getProximo();
+            }
+            newNodo.setProximo(primero);
+            actual.setProximo(newNodo);
             primero = newNodo;
-            tam++;
         }
+        tam++;
     }
     public void agregarFinal(T dato){
         Nodo<T> newNodo = new Nodo<>(dato);
         if(primero == null){
             primero = newNodo;
+            newNodo.setProximo(primero);
         }else{
             Nodo<T> actual = primero;
             while(actual.getProximo() != null){
                 actual = actual.getProximo();
             }
             actual.setProximo(newNodo);
+            newNodo.setProximo(primero);
         }
         tam++;
     }
@@ -61,6 +68,31 @@ public class ListaSimpleCircular <T extends Comparable<T>> implements Iterable<T
         }
         tam++;
     }
+
+    public void ordenar(){
+        if(primero == null || primero.getProximo() == primero){
+            return; // La lista está vacía o tiene un solo elemento
+        }
+        boolean cambio;
+        do {
+            cambio = false;
+            Nodo<T> actual = primero;
+            Nodo<T> siguiente = primero.getProximo();
+
+            while(siguiente != primero){
+                if(actual.getDato().compareTo(siguiente.getDato()) > 0){
+                    //cambio de datos
+                    T cambiar = actual.getDato();
+                    actual.setDato(siguiente.getDato());
+                    siguiente.setDato(cambiar);
+                    cambio = true;
+                }
+                actual = siguiente;
+                siguiente = siguiente.getProximo();
+            }
+        } while(cambio);
+    }
+
     //Metodo para agregar de manera natural a una lista
     public void agregarOrdenNatural(T dato) {
         Nodo<T> newNodo = new Nodo<>(dato);
